@@ -1,57 +1,188 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Maratha Udhyojak Foundation — Members</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Maratha Udhyojak Foundation | Empowering Entrepreneurs</title>
+    <meta name="description" content="The official website of the Maratha Udhyojak Foundation, connecting and empowering Maratha entrepreneurs globally.">
+    <link rel="canonical" href="https://www.yourdomain.com/index.html">
+    <meta property="og:title" content="Maratha Udhyojak Foundation">
+    <meta property="og:description" content="Empowering Maratha Entrepreneurs to Shape Tomorrow.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.yourdomain.com/">
+    <meta property="og:image" content="https://www.yourdomain.com/assets/images/hero.jpg">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Maratha Udhyojak Foundation",
+      "url": "https://www.yourdomain.com",
+      "logo": "https://www.yourdomain.com/assets/images/logo.png"
+    }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        // Use a configuration to set the primary color for a cleaner theme application in the demo
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': 'var(--color-primary, #8B5CF6)', // Default to violet-500
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-  <header>
-    <h1>Maratha Udhyojak Foundation</h1>
-    <div id="auth">
-      <div id="signed-out">
-        <input id="email" type="email" placeholder="Admin email" />
-        <input id="password" type="password" placeholder="Password" />
-        <button id="signInBtn">Sign in</button>
-      </div>
-      <div id="signed-in" style="display:none;">
-        <span id="adminEmail"></span>
-        <button id="signOutBtn">Sign out</button>
-      </div>
-    </div>
-  </header>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300" id="home-page">
 
-  <main>
-    <section id="membersSection">
-      <h2>Entrepreneur Members</h2>
-      <div id="membersList">Loading members...</div>
-    </section>
+    <header class="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 shadow-md backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center space-x-3">
+                    <img class="h-10 w-auto" src="assets/images/logo.png" alt="MUF Logo">
+                    <span class="text-2xl font-bold text-gray-900 dark:text-white">MUF</span>
+                </a>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-primary font-semibold hover:text-primary-700 dark:hover:text-primary-300 transition">Home</a>
+                    <a href="about.html" class="text-gray-600 dark:text-gray-300 hover:text-primary transition">About Us</a>
+                    <a href="directors.html" class="text-gray-600 dark:text-gray-300 hover:text-primary transition">Directors</a>
+                    <a href="members.html" class="text-gray-600 dark:text-gray-300 hover:text-primary transition">Members Directory</a>
+                    <a href="admin.html" class="text-gray-600 dark:text-gray-300 hover:text-primary transition">Admin Login</a>
+                </nav>
 
-    <section id="adminSection" style="display:none;">
-      <h2>Add Member</h2>
-      <form id="addMemberForm">
-        <input id="memberName" type="text" placeholder="Full name" required />
-        <input id="memberBusiness" type="text" placeholder="Business / Role" />
-        <textarea id="memberBio" placeholder="Short bio"></textarea>
-        <label>Photo (optional)
-          <input id="memberPhoto" type="file" accept="image/*" />
-        </label>
-        <button type="submit">Add Member</button>
-      </form>
-    </section>
-  </main>
+                <button type="button" onclick="toggleMenu()" class="md:hidden p-2 rounded-md text-gray-400 hover:text-gray-500 dark:hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500" aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <i class="fas fa-bars h-6 w-6"></i>
+                </button>
+            </div>
+        </div>
 
-  <footer>
-    <p>&copy; <span id="year"></span> Maratha Udhyojak Foundation</p>
-  </footer>
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-primary-50 dark:bg-gray-800">Home</a>
+                <a href="about.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">About Us</a>
+                <a href="directors.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">Directors</a>
+                <a href="members.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">Members Directory</a>
+                <a href="admin.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">Admin Login</a>
+            </div>
+        </div>
+    </header>
 
-  <!-- Firebase CDN (compat mode) -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+    <main>
+        <section class="relative bg-primary-600 dark:bg-gray-800 text-white pt-24 pb-32">
+            <div class="absolute inset-0 bg-cover bg-center opacity-10" style="background-image: url('assets/images/hero.jpg');"></div>
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4">
+                    Maratha Udhyojak Foundation
+                </h1>
+                <p id="hero-tagline" class="text-2xl md:text-3xl font-light italic mb-8 max-w-4xl mx-auto">
+                    Empowering Maratha Entrepreneurs to Shape Tomorrow.
+                </p>
+                <div class="space-x-4">
+                    <a href="members.html" class="inline-block px-8 py-3 text-lg font-semibold bg-white text-primary rounded-full shadow-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105">
+                        Explore Members
+                    </a>
+                    <a href="about.html" class="inline-block px-8 py-3 text-lg font-semibold border-2 border-white text-white rounded-full hover:bg-white/10 transition duration-300 transform hover:scale-105">
+                        Our Mission
+                    </a>
+                </div>
+            </div>
+        </section>
 
-  <script src="app.js"></script>
+        <section class="py-20 bg-white dark:bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">Our Core Mission</h2>
+                <p class="text-xl text-center text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
+                    To foster a robust ecosystem for Maratha entrepreneurs by providing mentorship, networking, and capital access, ensuring collective growth and regional prosperity.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg">
+                        <i class="fas fa-handshake fa-3x text-emerald-500 mb-4"></i>
+                        <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-2">Global Network</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Connect with over 5,000 members worldwide across diverse industries.</p>
+                    </div>
+                    <div class="text-center p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg">
+                        <i class="fas fa-graduation-cap fa-3x text-primary mb-4"></i>
+                        <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-2">Mentorship Programs</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Access guidance from seasoned veterans and industry leaders.</p>
+                    </div>
+                    <div class="text-center p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg">
+                        <i class="fas fa-chart-line fa-3x text-red-500 mb-4"></i>
+                        <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-2">Venture Capital</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Opportunities for funding and investment through our specialized fund.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-primary-50 dark:bg-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12">Featured Entrepreneurs</h2>
+                
+                <div id="featured-members" class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    </div>
+
+                <div class="text-center mt-12">
+                    <a href="members.html" class="inline-block px-10 py-3 text-lg font-semibold bg-primary text-white rounded-full shadow-lg hover:bg-primary-700 transition duration-300">
+                        View Full Directory
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 dark:bg-gray-950 text-white pt-12 pb-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="text-xl font-semibold mb-4 text-primary">Contact Us</h4>
+                    <p class="text-gray-400">123 Maratha Bhavan, Pune, MH 411001</p>
+                    <p class="text-gray-400 mt-2">Email: info@mufoundation.org</p>
+                    <p class="text-gray-400">Phone: +91 98765 43210</p>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-semibold mb-4 text-primary">Quick Links</h4>
+                    <ul>
+                        <li class="mb-2"><a href="about.html" class="text-gray-400 hover:text-white transition">Our Story</a></li>
+                        <li class="mb-2"><a href="directors.html" class="text-gray-400 hover:text-white transition">Leadership</a></li>
+                        <li class="mb-2"><a href="members.html" class="text-gray-400 hover:text-white transition">Join Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-semibold mb-4 text-primary">Resources</h4>
+                    <ul>
+                        <li class="mb-2"><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                        <li class="mb-2"><a href="#" class="text-gray-400 hover:text-white transition">Events Calendar</a></li>
+                        <li class="mb-2"><a href="#" class="text-gray-400 hover:text-white transition">Media Kit</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-semibold mb-4 text-primary">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-linkedin fa-2x"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram fa-2x"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook fa-2x"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-youtube fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-6 mt-6 text-center text-gray-500">
+                <p>&copy; 2024 Maratha Udhyojak Foundation. All rights reserved.</p>
+                <p class="mt-1 text-sm">Design by AI - Fully Responsive Template.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="./js/data.js"></script>
+    <script type="module" src="./js/main.js"></script>
 </body>
 </html>
