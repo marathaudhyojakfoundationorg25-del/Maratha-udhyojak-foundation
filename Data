@@ -1,0 +1,159 @@
+// admin.js
+import { AppData } from './data.js';
+
+// --- Dashboard Management Functions ---
+
+export function renderDashboardSummary() {
+    document.getElementById('member-count').textContent = AppData.members.length;
+    document.getElementById('director-count').textContent = AppData.directors.length;
+    // ... add logic for basic analytics placeholders
+}
+
+// --- Member Management Functions (CRUD) ---
+
+let currentMemberId = null;
+
+export function renderMemberList() {
+    const list = document.getElementById('member-management-list');
+    if (!list) return;
+
+    list.innerHTML = ''; // Clear existing list
+    
+    AppData.members.forEach(member => {
+        const row = document.createElement('tr');
+        row.className = 'border-b hover:bg-gray-50 dark:hover:bg-gray-700';
+        row.innerHTML = `
+            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">${member.name}</td>
+            <td class="px-6 py-4">${member.business}</td>
+            <td class="px-6 py-4">${member.category}</td>
+            <td class="px-6 py-4">
+                <button onclick="editMember(${member.id})" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-2">Edit</button>
+                <button onclick="deleteMember(${member.id})" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+            </td>
+        `;
+        list.appendChild(row);
+    });
+}
+
+// Global window functions for event listeners to work easily in HTML
+window.editMember = (id) => {
+    currentMemberId = id;
+    const member = AppData.members.find(m => m.id === id);
+    if (!member) return;
+
+    // Prefill the form for editing
+    document.getElementById('member-id').value = member.id || '';
+    document.getElementById('member-name').value = member.name || '';
+    document.getElementById('member-business').value = member.business || '';
+    document.getElementById('member-category').value = member.category || '';
+    document.getElementById('member-city').value = member.city || '';
+    document.getElementById('member-contact').value = member.contact || '';
+    document.getElementById('member-bio').value = member.bio || '';
+    document.getElementById('member-linkedin').value = member.linkedin || '';
+    document.getElementById('member-website').value = member.website || '';
+    
+    // Show the modal/form (assuming you have a way to display it)
+    document.getElementById('member-modal').classList.remove('hidden');
+    document.getElementById('member-form-title').textContent = 'Edit Member Profile';
+};
+
+window.deleteMember = (id) => {
+    if (confirm('Are you sure you want to delete this member?')) {
+        AppData.members = AppData.members.filter(m => m.id !== id);
+        AppData.save();
+        renderMemberList();
+        renderDashboardSummary();
+    }
+};
+
+window.saveMember = (event) => {
+    event.preventDefault();
+    
+    const form = event.target;
+    const isEditing = currentMemberId !== null;
+
+    const newMember = {
+        id: isEditing ? currentMemberId : Date.now(), // Use timestamp for unique ID if new
+        name: form.elements['member-name'].value,
+        business: form.elements['member-business'].value,
+        category: form.elements['member-category'].value,
+        city: form.elements['member-city'].value,
+        contact: form.elements['member-contact'].value,
+        bio: form.elements['member-bio'].value,
+        linkedin: form.elements['member-linkedin'].value,
+        website: form.elements['member-website'].value,
+        // photo handling is complex and left as a placeholder (photo: "assets/images/member-default.jpg")
+        photo: isEditing ? AppData.members.find(m => m.id === currentMemberId)?.photo || "assets/images/member-default.jpg" : "assets/images/member-default.jpg"
+    };
+
+    if (isEditing) {
+        // Update existing member
+        const index = AppData.members.findIndex(m => m.id === currentMemberId);
+        if (index !== -1) {
+            AppData.members[index] = { ...AppData.members[index], ...newMember };
+        }
+    } else {
+        // Add new member
+        AppData.members.push(newMember);
+    }
+
+    AppData.save();
+    renderMemberList();
+    renderDashboardSummary();
+    
+    // Reset and hide form
+    form.reset();
+    document.getElementById('member-modal').classList.add('hidden');
+    currentMemberId = null; // Reset edit state
+};
+
+window.openAddMemberModal = () => {
+    currentMemberId = null;
+    document.getElementById('member-form-title').textContent = 'Add New Member';
+    document.getElementById('member-form').reset();
+    document.getElementById('member-modal').classList.remove('hidden');
+};
+
+// --- Customization Controls ---
+
+export function renderCustomization() {
+    document.getElementById('config-tagline').value = AppData.config.tagline;
+    document.getElementById('config-primary-color').value = AppData.config.primaryColor;
+    document.getElementById('config-secondary-color').value = AppData.config.secondaryColor;
+    document.getElementById('config-dark-mode').checked = AppData.config.darkMode;
+}
+
+window.saveCustomization = (event) => {
+    event.preventDefault();
+    const form = event.target;
+
+    AppData.config.tagline = form.elements['config-tagline'].value;
+    AppData.config.primaryColor = form.elements['config-primary-color'].value;
+    AppData.config.secondaryColor = form.elements['config-secondary-color'].value;
+    AppData.config.darkMode = form.elements['config-dark-mode'].checked;
+
+    AppData.save();
+    AppData.applyTheme();
+    alert('Customization saved and theme applied! (Reload public pages to see full effect)');
+};
+
+// Initializes the admin dashboard on load
+window.onload = () => {
+    if (document.getElementById('admin-dashboard')) {
+        renderDashboardSummary();
+        renderMemberList();
+        renderCustomization();
+    }
+    
+    // Attach form submit listeners
+    const memberForm = document.getElementById('member-form');
+    if (memberForm) {
+        memberForm.addEventListener('submit', window.saveMember);
+    }
+
+    const configForm = document.getElementById('customization-form');
+    if (configForm) {
+        configForm.addEventListener('submit', window.saveCustomization);
+    }
+};
+
